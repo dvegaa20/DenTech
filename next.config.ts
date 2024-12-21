@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  images: {
+    domains: ["cloud.appwrite.io"],
+  },
 };
 
 export default nextConfig;

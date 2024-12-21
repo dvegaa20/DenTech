@@ -1,3 +1,5 @@
+import { FileUser, Phone, MapPin, Hospital, Paintbrush } from "lucide-react";
+
 export const GenderOptions = ["Male", "Female", "Other"];
 
 export const PatientFormDefaultValues = {
@@ -83,4 +85,13 @@ export const StatusIcon = {
   scheduled: "/assets/icons/check.svg",
   pending: "/assets/icons/pending.svg",
   cancelled: "/assets/icons/cancelled.svg",
+};
+
+export const data = {
+  nav: [
+    { name: "Datos de Identificación", icon: FileUser },
+    { name: "Contacto", icon: Phone },
+    { name: "Dirección", icon: MapPin },
+    { name: "Historia Clínica General", icon: Hospital },
+  ],
 };

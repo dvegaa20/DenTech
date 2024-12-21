@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import {
   ColumnDef,
   flexRender,
@@ -16,6 +17,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { SettingsDialog } from "./SettingsDialog"; // Asegúrate de importar el componente SettingsDialog
 import { Button } from "../ui/button";
 import Image from "next/image";
 
@@ -28,12 +30,20 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  const [selectedRow, setSelectedRow] = React.useState<TData | null>(null);
+  const [dialogOpen, setDialogOpen] = React.useState(false);
+
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   });
+
+  const handleRowClick = (rowData: TData) => {
+    setSelectedRow(rowData);
+    setDialogOpen(true);
+  };
 
   return (
     <div className="data-table">
@@ -61,6 +71,7 @@ export function DataTable<TData, TValue>({
             table.getRowModel().rows.map((row) => (
               <TableRow
                 key={row.id}
+                onClick={() => handleRowClick(row.original)}
                 data-state={row.getIsSelected() && "selected"}
                 className="shad-table-row"
               >
@@ -111,6 +122,13 @@ export function DataTable<TData, TValue>({
           />
         </Button>
       </div>
+      {dialogOpen && selectedRow && (
+        <SettingsDialog
+          open={dialogOpen}
+          onOpenChange={setDialogOpen}
+          rowData={selectedRow} // Pasa los datos seleccionados como props si es necesario
+        />
+      )}
     </div>
   );
 }
